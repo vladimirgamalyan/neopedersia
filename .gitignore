@@ -1,8 +1,1 @@
 /build
-/src/Release
-/src/Debug
-/src/ipch
-/src/*.user
-/src/*.suo
-/src/*.sdf
-/src/*.opensdf
