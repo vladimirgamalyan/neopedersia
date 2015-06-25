@@ -15,10 +15,9 @@ int main(int /*argc*/, char** /*argv*/) try {
 
 	// Main loop
 	while (1) {
-		unsigned int frame_ticks = SDL_GetTicks();
-		unsigned int frame_delta = frame_ticks - prev_ticks;
-		prev_ticks = frame_ticks;
-		frame_delta;
+		//unsigned int frame_ticks = SDL_GetTicks();
+		//unsigned int frame_delta = frame_ticks - prev_ticks;
+		//prev_ticks = frame_ticks;
 
 		// Process events
 		SDL_Event event;
