@@ -18,6 +18,7 @@ int main(int /*argc*/, char** /*argv*/) try {
 		unsigned int frame_ticks = SDL_GetTicks();
 		unsigned int frame_delta = frame_ticks - prev_ticks;
 		prev_ticks = frame_ticks;
+		frame_delta;
 
 		// Process events
 		SDL_Event event;
