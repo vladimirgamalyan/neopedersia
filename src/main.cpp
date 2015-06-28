@@ -7,7 +7,8 @@
 #include <SDL2pp/Renderer.hh>
 #include <SDL2pp/SDLImage.hh>
 #include <SDL2pp/Texture.hh>
-
+#include "World.h"
+#include "PainterImpl.h"
 
 int main(int /*argc*/, char** /*argv*/) try {
 	// SDL stuff
@@ -16,11 +17,12 @@ int main(int /*argc*/, char** /*argv*/) try {
 	SDL2pp::Window window("neopedersia", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
 	SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-    SDL2pp::Texture sprite1(renderer, "assets/tileset/tileset/prop_3x3.png");
-    sprite1.SetBlendMode(SDL_BLENDMODE_BLEND);
     renderer.SetDrawBlendMode(SDL_BLENDMODE_BLEND);
 
 	//unsigned int prev_ticks = SDL_GetTicks();
+
+    PainterImpl painter(renderer);
+    World world(painter);
 
 	// Main loop
 	while (1) {
@@ -41,11 +43,14 @@ int main(int /*argc*/, char** /*argv*/) try {
 			}
 		}
 
+        // Update
+        world.update();
+
 		// Render
 		renderer.SetDrawColor(0, 0, 0);
 		renderer.Clear();
 
-        renderer.Copy(sprite1, SDL2pp::NullOpt, SDL2pp::Point(0, 0));
+        world.render();
 
 		renderer.Present();
 
