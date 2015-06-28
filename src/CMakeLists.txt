@@ -2,7 +2,7 @@ SET(SOURCES
 	main.cpp
 )
 
-ADD_EXECUTABLE(neopedersia ${SOURCES})
+ADD_EXECUTABLE(neopedersia ${SOURCES} Ground.cpp Ground.h WorldPainter.h Point.cpp Point.h WorldObject.h Picture.h World.cpp World.h)
 
 IF(MINGW)
     SET(MINGW32_LIBRARY mingw32 CACHE STRING "mwindows for MinGW")
