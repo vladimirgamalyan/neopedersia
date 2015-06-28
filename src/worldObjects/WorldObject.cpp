@@ -14,3 +14,13 @@ void WorldObject::assignWorld(World *world)
 {
     this->world = world;
 }
+
+bool WorldObject::isDead() const
+{
+    return hp <= 0;
+}
+
+Size WorldObject::getDim() const
+{
+    return Size();
+}

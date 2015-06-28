@@ -11,7 +11,7 @@ void WorldPainterImpl::draw(const Point &pos, const Texture &picture) const
     y += offset.y;
 
     x -= size.w / 2.0;
-    y += size.h / 2.0;
+    y -= size.h / 2.0;
 
     Point p(static_cast<int>(x), static_cast<int>(y));
 
