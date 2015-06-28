@@ -23,6 +23,7 @@ int main(int /*argc*/, char** /*argv*/) try {
 
     PainterImpl painter(renderer);
     World world(painter);
+    world.fill();
 
     const int MOVE_STEP = 16;
 

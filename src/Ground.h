@@ -1,8 +1,8 @@
 #pragma once
 
-#include "WorldObject.h"
+#include "WorldPainter.h"
 
-class Ground : public WorldObject
+class Ground
 {
 public:
     virtual void update();
