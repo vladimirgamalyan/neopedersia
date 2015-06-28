@@ -14,7 +14,7 @@ int main(int /*argc*/, char** /*argv*/) try {
 	// SDL stuff
 	SDL2pp::SDL sdl(SDL_INIT_VIDEO);
     SDL2pp::SDLImage image(IMG_INIT_PNG);
-	SDL2pp::Window window("neopedersia", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
+	SDL2pp::Window window("neopedersia", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_RESIZABLE);
 	SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
     renderer.SetDrawBlendMode(SDL_BLENDMODE_BLEND);
@@ -23,6 +23,8 @@ int main(int /*argc*/, char** /*argv*/) try {
 
     PainterImpl painter(renderer);
     World world(painter);
+
+    const int MOVE_STEP = 16;
 
 	// Main loop
 	while (1) {
@@ -37,8 +39,20 @@ int main(int /*argc*/, char** /*argv*/) try {
 				return 0;
 			} else if (event.type == SDL_KEYDOWN) {
 				switch (event.key.keysym.sym) {
-				case SDLK_ESCAPE: case SDLK_q:
-					return 0;
+				    case SDLK_ESCAPE:
+					    return 0;
+                    case SDLK_UP:
+                        world.moveMap(Vec2(0, -MOVE_STEP));
+                        break;
+                    case SDLK_DOWN:
+                        world.moveMap(Vec2(0, MOVE_STEP));
+                        break;
+                    case SDLK_LEFT:
+                        world.moveMap(Vec2(-MOVE_STEP, 0));
+                        break;
+                    case SDLK_RIGHT:
+                        world.moveMap(Vec2(MOVE_STEP, 0));
+                        break;
 				}
 			}
 		}
