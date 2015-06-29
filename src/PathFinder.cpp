@@ -8,7 +8,7 @@ void PathFinder::PrintStateInfo(void * /*state*/)
 
 Vec2 PathFinder::NodeToPoint(void *node)
 {
-    int index = (int) node;
+    intptr_t index = reinterpret_cast<intptr_t>(node);
     int y = index / MAP_WIDTH;
     int x = index - y * MAP_WIDTH;
     return Vec2(x, y);
@@ -16,7 +16,7 @@ Vec2 PathFinder::NodeToPoint(void *node)
 
 void *PathFinder::PointToNode(const Vec2 &point)
 {
-    return (void *) (point.y * MAP_WIDTH + point.x);
+    return reinterpret_cast<void*>(static_cast<intptr_t>(point.y * MAP_WIDTH + point.x));
 }
 
 void PathFinder::AdjacentCost(void *state, std::vector<micropather::StateCost> *adjacent)
