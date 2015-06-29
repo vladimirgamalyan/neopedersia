@@ -1,7 +1,3 @@
-/.idea/.name
-/.idea/misc.xml
-/.idea/modules.xml
-/.idea/neopedersia.iml
-/.idea/vcs.xml
-/.idea/workspace.xml
+/.idea
 /bin
+/build

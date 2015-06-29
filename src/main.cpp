@@ -15,7 +15,7 @@ int main(int /*argc*/, char** /*argv*/) try {
 	SDL2pp::SDL sdl(SDL_INIT_VIDEO);
     SDL2pp::SDLImage image(IMG_INIT_PNG);
 	SDL2pp::Window window("neopedersia", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_RESIZABLE);
-	SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
+	SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     renderer.SetDrawBlendMode(SDL_BLENDMODE_BLEND);
 

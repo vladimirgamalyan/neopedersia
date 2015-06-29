@@ -2,6 +2,7 @@
 #include "worldObjects/Wall.h"
 #include "worldObjects/Pony.h"
 #include "worldObjects/TownHall.h"
+#include "worldObjects/Bojarski.h"
 
 void World::update()
 {
@@ -37,6 +38,8 @@ void World::fill()
     for (int i = 0; i < 16; ++i)
         addWorldObject(new Pony, Point(1, 1));
     addWorldObject(new TownHall, Point(14, 14));
+
+    addWorldObject(new Bojarski, Point(16, 12));
 }
 
 void World::putWallRect(const Rect &rect)
