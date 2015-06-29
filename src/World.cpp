@@ -19,6 +19,8 @@ void World::render()
 
     for (std::list<WorldObject *>::const_iterator it = items.begin(); it != items.end(); ++it)
         (*it)->render(worldPainter);
+
+    worldPainter.drawQueue();
 }
 
 void World::moveMap(const Vec2 &offset)

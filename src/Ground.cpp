@@ -29,7 +29,7 @@ void Ground::fill()
 
 void Ground::renderCell(const WorldPainter& worldPainter, int col, int row, int cell) const
 {
-    worldPainter.draw(Vec2(col * 28, row * 28), getCellTexture(cell));
+    worldPainter.drawUnordered(Vec2(col * 28, row * 28), getCellTexture(cell));
 }
 
 std::string Ground::getCellTexture(int cell) const
