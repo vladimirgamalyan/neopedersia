@@ -1,19 +1,20 @@
 #include "WorldPainterImpl.h"
 
-void WorldPainterImpl::draw(const Point &pos, const Texture &picture) const
+void WorldPainterImpl::draw(const Vec2 &pos, const Texture &picture) const
 {
-    Size size = painter.getTextureSize(picture);
+    Vec2 size = painter.getTextureSize(picture);
 
+    //TODO: Use Vec2f
     double x = (pos.x - pos.y) * 4.0;
     double y = ((pos.x + pos.y) / 2.0 ) * 4.0;
 
     x += offset.x;
     y += offset.y;
 
-    x -= size.w / 2.0;
-    y -= size.h / 2.0;
+    x -= size.x / 2.0;
+    y -= size.y / 2.0;
 
-    Point p(static_cast<int>(x), static_cast<int>(y));
+    Vec2 p(static_cast<int>(x), static_cast<int>(y));
 
     painter.draw(p, picture);
 }

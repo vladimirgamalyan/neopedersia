@@ -20,7 +20,7 @@ private:
     };
     int state;
     WorldObject* target;
-    std::vector<Point> path;
+    std::vector<Vec2> path;
     int step;
     bool directionRight;
 };

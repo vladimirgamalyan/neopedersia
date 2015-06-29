@@ -8,8 +8,8 @@ class PainterImpl : public Painter
 {
 public:
     PainterImpl(SDL2pp::Renderer& renderer) : renderer(renderer) {}
-    virtual void draw(const Point& pos, const Texture& picture) const;
-    virtual Size getTextureSize(const Texture& picture) const;
+    virtual void draw(const Vec2& pos, const Texture& picture) const;
+    virtual Vec2 getTextureSize(const Texture& picture) const;
 
 private:
     SDL2pp::Renderer& renderer;

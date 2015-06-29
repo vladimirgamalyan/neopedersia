@@ -1,6 +1,6 @@
 #pragma once
 #include "../WorldPainter.h"
-#include "../Size.h"
+#include "../Vec2.h"
 
 class World;
 
@@ -12,13 +12,13 @@ public:
     void assignWorld(World* world);
     virtual void update() = 0;
     virtual void render(const WorldPainter& worldPainter) const = 0;
-    virtual void setPos(const Point& pos);
-    virtual Size getDim() const;
-    Point getPos() const;
+    virtual void setPos(const Vec2& pos);
+    virtual Vec2 getDim() const;
+    Vec2 getPos() const;
     bool isDead() const;
 
 protected:
     World* world;
-    Point pos;
+    Vec2 pos;
     int hp = 1;
 };

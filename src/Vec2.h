@@ -26,6 +26,42 @@ public:
         y -= other.y;
         return *this;
     }
+    bool operator==(const Vec2& other) const
+    {
+        return ((x == other.x) && (y == other.y));
+    }
+    bool operator!=(const Vec2& other) const
+    {
+        return ((x != other.x) || (y != other.y));
+    }
+
+    Vec2 operator*(int value) const
+    {
+        return Vec2(x * value, y * value);
+    }
+
+    Vec2& operator*=(int value)
+    {
+        x *= value;
+        y *= value;
+        return *this;
+    }
+
+    Vec2 operator/(int value) const
+    {
+        return Vec2(x / value, y / value);
+    }
+
+    Vec2& operator/=(int value)
+    {
+        x /= value;
+        y /= value;
+        return *this;
+    }
+    bool isZero() const
+    {
+        return (x == 0) && (y == 0);
+    }
     int x;
     int y;
 };

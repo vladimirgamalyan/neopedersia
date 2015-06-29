@@ -16,17 +16,17 @@ public:
     void update();
     void render();
     void moveMap(const Vec2& offset);
-    int find(const Point& from, const Point& to, std::vector<Point>& path);
+    int find(const Vec2& from, const Vec2& to, std::vector<Vec2>& path);
 
 private:
     static const int CELL_SIZE = 8;
 
     void updatePathFinderMap();
     void putWallRect(const Rect &rect);
-    void putWallLine(Point from, const Vec2& direction, int len);
-    void addWorldObject(WorldObject* worldObject, const Point& pos);
+    void putWallLine(Vec2 from, const Vec2& direction, int len);
+    void addWorldObject(WorldObject* worldObject, const Vec2& pos);
     void addWorldObject(WorldObject* worldObject);
-    void removeWallByPos(const Point& pos);
+    void removeWallByPos(const Vec2& pos);
 
     WorldPainterImpl worldPainter;
     Ground ground;

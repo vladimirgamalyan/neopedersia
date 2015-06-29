@@ -36,23 +36,23 @@ void World::fill()
     putWallRect(Rect(10, 10, 12, 12));
 
     for (int i = 0; i < 16; ++i)
-        addWorldObject(new Pony, Point(1, 1));
-    addWorldObject(new TownHall, Point(14, 14));
+        addWorldObject(new Pony, Vec2(1, 1));
+    addWorldObject(new TownHall, Vec2(14, 14));
 
-    addWorldObject(new Bojarski, Point(16, 12));
+    addWorldObject(new Bojarski, Vec2(16, 12));
 }
 
 void World::putWallRect(const Rect &rect)
 {
-    putWallLine(Point(rect.x, rect.y), Vec2(1, 0), rect.w);
-    putWallLine(Point(rect.x, rect.y + rect.h - 1), Vec2(1, 0), rect.w);
-    putWallLine(Point(rect.x, rect.y), Vec2(0, 1), rect.h);
-    putWallLine(Point(rect.x + rect.w - 1, rect.y), Vec2(0, 1), rect.h);
-    removeWallByPos(Point(4, 10));
-    removeWallByPos(Point(21, 12));
+    putWallLine(Vec2(rect.x, rect.y), Vec2(1, 0), rect.w);
+    putWallLine(Vec2(rect.x, rect.y + rect.h - 1), Vec2(1, 0), rect.w);
+    putWallLine(Vec2(rect.x, rect.y), Vec2(0, 1), rect.h);
+    putWallLine(Vec2(rect.x + rect.w - 1, rect.y), Vec2(0, 1), rect.h);
+    removeWallByPos(Vec2(4, 10));
+    removeWallByPos(Vec2(21, 12));
 }
 
-void World::removeWallByPos(const Point &pos)
+void World::removeWallByPos(const Vec2 &pos)
 {
     for (std::list<WorldObject *>::iterator it = items.begin(); it != items.end(); ++it)
     {
@@ -65,7 +65,7 @@ void World::removeWallByPos(const Point &pos)
     }
 }
 
-void World::putWallLine(Point from, const Vec2 &direction, int len)
+void World::putWallLine(Vec2 from, const Vec2 &direction, int len)
 {
     while (len > 0)
     {
@@ -77,7 +77,7 @@ void World::putWallLine(Point from, const Vec2 &direction, int len)
     }
 }
 
-void World::addWorldObject(WorldObject *worldObject, const Point &pos)
+void World::addWorldObject(WorldObject *worldObject, const Vec2 &pos)
 {
     worldObject->setPos(pos * CELL_SIZE);
     addWorldObject(worldObject);
@@ -89,7 +89,7 @@ void World::addWorldObject(WorldObject *worldObject)
     items.push_back(worldObject);
 }
 
-int World::find(const Point &from, const Point &to, std::vector<Point> &path)
+int World::find(const Vec2 &from, const Vec2 &to, std::vector<Vec2> &path)
 {
     return pathFinder.find(from / CELL_SIZE, to / CELL_SIZE, path);
 }
@@ -103,14 +103,14 @@ void World::updatePathFinderMap()
     for (std::list<WorldObject*>::iterator it = items.begin(); it != items.end(); ++it)
     {
         WorldObject *worldObject = *it;
-        Size size = worldObject->getDim();
+        Vec2 size = worldObject->getDim();
 
         if (!size.isZero())
         {
-            Point p = worldObject->getPos() / CELL_SIZE;
+            Vec2 p = worldObject->getPos() / CELL_SIZE;
 
-            for (int col = 0; col < size.w; ++col)
-                for (int row = 0; row < size.h; ++row)
+            for (int col = 0; col < size.x; ++col)
+                for (int row = 0; row < size.y; ++row)
                     pathFinder.cells[col + p.x][row + p.y] = 1;
         }
     }

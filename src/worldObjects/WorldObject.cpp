@@ -1,11 +1,11 @@
 #include "WorldObject.h"
 
-void WorldObject::setPos(const Point &pos)
+void WorldObject::setPos(const Vec2 &pos)
 {
     this->pos = pos;
 }
 
-Point WorldObject::getPos() const
+Vec2 WorldObject::getPos() const
 {
     return pos;
 }
@@ -20,7 +20,7 @@ bool WorldObject::isDead() const
     return hp <= 0;
 }
 
-Size WorldObject::getDim() const
+Vec2 WorldObject::getDim() const
 {
-    return Size();
+    return Vec2();
 }

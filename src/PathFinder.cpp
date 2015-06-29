@@ -6,15 +6,15 @@ void PathFinder::PrintStateInfo(void * /*state*/)
     // For debug purposes, for example write state to stdout.
 }
 
-Point PathFinder::NodeToPoint(void *node)
+Vec2 PathFinder::NodeToPoint(void *node)
 {
     int index = (int) node;
     int y = index / MAP_WIDTH;
     int x = index - y * MAP_WIDTH;
-    return Point(x, y);
+    return Vec2(x, y);
 }
 
-void *PathFinder::PointToNode(const Point &point)
+void *PathFinder::PointToNode(const Vec2 &point)
 {
     return (void *) (point.y * MAP_WIDTH + point.x);
 }
@@ -25,7 +25,7 @@ void PathFinder::AdjacentCost(void *state, std::vector<micropather::StateCost> *
     const int dy[8] = {0, 1, 1, 1, 0, -1, -1, -1};
     const float cost[8] = {1.0f, 1.41f, 1.0f, 1.41f, 1.0f, 1.41f, 1.0f, 1.41f};
 
-    Point p = NodeToPoint(state);
+    Vec2 p = NodeToPoint(state);
 
     for (int i = 0; i < 8; ++i)
     {
@@ -35,7 +35,7 @@ void PathFinder::AdjacentCost(void *state, std::vector<micropather::StateCost> *
 
         if (passable(nx, ny))
         {
-            micropather::StateCost nodeCost = {PointToNode(Point(nx, ny)), cost[i]};
+            micropather::StateCost nodeCost = {PointToNode(Vec2(nx, ny)), cost[i]};
             adjacent->push_back(nodeCost);
         }
     }
@@ -54,8 +54,8 @@ bool PathFinder::passable(int nx, int ny)
 
 float PathFinder::LeastCostEstimate(void *stateStart, void *stateEnd)
 {
-    Point start = NodeToPoint(stateStart);
-    Point end = NodeToPoint(stateEnd);
+    Vec2 start = NodeToPoint(stateStart);
+    Vec2 end = NodeToPoint(stateEnd);
 
     //TODO: Use Vec2.
     int dx = start.x - end.x;
@@ -63,7 +63,7 @@ float PathFinder::LeastCostEstimate(void *stateStart, void *stateEnd)
     return (float) sqrt((double) (dx * dx) + (double) (dy * dy));
 }
 
-int PathFinder::find(const Point &from, const Point &to, std::vector<Point> &path)
+int PathFinder::find(const Vec2 &from, const Vec2 &to, std::vector<Vec2> &path)
 {
     path.clear();
 

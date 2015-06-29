@@ -8,7 +8,7 @@ class WorldPainterImpl : public WorldPainter
 public:
     WorldPainterImpl(Painter& painter) : painter(painter) {}
     virtual void setOffset(const Vec2& offset);
-    virtual void draw(const Point& pos, const Texture & picture) const;
+    virtual void draw(const Vec2& pos, const Texture & picture) const;
 
 private:
     Painter& painter;

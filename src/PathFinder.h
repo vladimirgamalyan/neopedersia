@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Point.h"
+#include "Vec2.h"
 #include <vector>
 #include "micropather.h"
 
@@ -15,13 +15,13 @@ public:
 	//bool isPointEmpty( int x, int y ) const;
 
 	// Найти маршрут (результат сбрасывается в Path).
-	int find(const Point& from, const Point& to, std::vector<Point>& path);
+	int find(const Vec2& from, const Vec2& to, std::vector<Vec2>& path);
 
 private:
 	virtual float LeastCostEstimate( void* stateStart, void* stateEnd );
 	virtual void AdjacentCost( void* state, std::vector< micropather::StateCost > *adjacent );
 	virtual void PrintStateInfo( void* state );
-    Point NodeToPoint(void* node);
-	void* PointToNode(const Point& point);
+	Vec2 NodeToPoint(void* node);
+	void* PointToNode(const Vec2& point);
 	bool passable( int nx, int ny );
 };

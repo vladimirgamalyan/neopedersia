@@ -23,7 +23,7 @@ void Pony::update()
         // Random pos.
         //int fromX = x / Common::MAP_CELL_SIZE;
         //int fromY = y / Common::MAP_CELL_SIZE;
-        Point targetPos(rand() % (48 * 8), rand() % (48 * 8));
+        Vec2 targetPos(rand() % (48 * 8), rand() % (48 * 8));
 
         // Get target.
 //        target = world->getNearestTarget( x, y, 100000000, true );
@@ -82,7 +82,7 @@ void Pony::update()
         else
         {
             // Move in progress.
-            Point t = path.at(step);
+            Vec2 t = path.at(step);
 
             //int targetX = path.at( step ).x * Common::MAP_CELL_SIZE;
             //int targetY = path.at( step ).y * Common::MAP_CELL_SIZE;
