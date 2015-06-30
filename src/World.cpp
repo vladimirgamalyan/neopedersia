@@ -99,7 +99,7 @@ void World::updatePathFinderMap()
 {
     for (int col = 0; col < Config::World::WIDTH_CELL; ++col)
         for (int row = 0; row < Config::World::WIDTH_CELL; ++row)
-            pathFinder.cells[col][row] = 0;
+            pathFinder.cells[col][row] = WorldObjectId::Empty;
 
     for (std::list<WorldObject*>::iterator it = items.begin(); it != items.end(); ++it)
     {
@@ -109,10 +109,11 @@ void World::updatePathFinderMap()
         if (!size.isZero())
         {
             Vec2 p = worldObject->getPos() / Config::World::CELL_SIZE;
+            WorldObjectId id = worldObject->getId();
 
             for (int col = 0; col < size.x; ++col)
                 for (int row = 0; row < size.y; ++row)
-                    pathFinder.cells[col + p.x][row + p.y] = 1;
+                    pathFinder.cells[col + p.x][row + p.y] = id;
         }
     }
 }
@@ -126,4 +127,11 @@ void World::alignToWindowCenter(const Vec2& windowSize)
     Vec2 offset = windowCenter - worldCenterScr;
     this->offset = offset;
     worldPainter.setOffset(this->offset);
+}
+
+WorldObjectId World::getBuilding(const Vec2 &pos) const
+{
+    if (!Rect(Config::World::WIDTH_CELL, Config::World::HEIGHT_CELL).contains(pos))
+        return WorldObjectId::Empty;
+    return pathFinder.cells[pos.x][pos.y];
 }

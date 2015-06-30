@@ -1,4 +1,5 @@
 #include "WorldObject.h"
+#include "WorldObjectId.h"
 
 void WorldObject::setPos(const Vec2 &pos)
 {
@@ -23,4 +24,9 @@ bool WorldObject::isDead() const
 Vec2 WorldObject::getDim() const
 {
     return Vec2();
+}
+
+WorldObjectId WorldObject::getId() const
+{
+    return WorldObjectId::Generic;
 }

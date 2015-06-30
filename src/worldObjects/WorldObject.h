@@ -1,6 +1,7 @@
 #pragma once
 #include "../WorldPainter.h"
 #include "../Vec2.h"
+#include "WorldObjectId.h"
 
 class World;
 
@@ -14,6 +15,7 @@ public:
     virtual void render(const WorldPainter& worldPainter) const = 0;
     virtual void setPos(const Vec2& pos);
     virtual Vec2 getDim() const;
+    virtual WorldObjectId getId() const;
     Vec2 getPos() const;
     bool isDead() const;
 

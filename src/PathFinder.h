@@ -4,12 +4,12 @@
 #include <vector>
 #include "micropather.h"
 #include "Config.h"
+#include "worldObjects/WorldObjectId.h"
 
 class PathFinder : public micropather::Graph
 {
 public:
-	typedef int MapCell;
-	MapCell cells[Config::World::WIDTH_CELL][Config::World::HEIGHT_CELL];
+    WorldObjectId cells[Config::World::WIDTH_CELL][Config::World::HEIGHT_CELL];
 
 	//bool isPointEmpty( int x, int y ) const;
 

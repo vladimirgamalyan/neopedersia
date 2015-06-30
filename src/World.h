@@ -18,6 +18,7 @@ public:
     void moveMap(const Vec2& offset);
     void alignToWindowCenter(const Vec2& windowSize);
     int find(const Vec2& from, const Vec2& to, std::vector<Vec2>& path);
+    WorldObjectId getBuilding(const Vec2& pos) const;
 
 private:
     void updatePathFinderMap();

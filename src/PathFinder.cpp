@@ -45,8 +45,8 @@ bool PathFinder::passable(int nx, int ny)
 {
     if ((nx >= 0) && (nx < Config::World::WIDTH_CELL) && (ny >= 0) && (ny < Config::World::WIDTH_CELL))
     {
-        MapCell cell = cells[nx][ny];
-        if (cell == 0)
+        WorldObjectId cell = cells[nx][ny];
+        if (cell == WorldObjectId::Empty)
             return true;
     }
     return false;
