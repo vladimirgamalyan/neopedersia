@@ -17,6 +17,10 @@ int main(int /*argc*/, char** /*argv*/) try {
 	SDL2pp::Window window("neopedersia", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_RESIZABLE);
 	SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
+    const SDL2pp::Point& windowSize = window.GetSize();
+
+    //std::cout << "screen size: " << window.GetSize() << std::endl;
+
     renderer.SetDrawBlendMode(SDL_BLENDMODE_BLEND);
 
 	//unsigned int prev_ticks = SDL_GetTicks();
@@ -24,6 +28,7 @@ int main(int /*argc*/, char** /*argv*/) try {
     PainterImpl painter(renderer);
     World world(painter);
     world.fill();
+    world.alignToWindowCenter(Vec2(windowSize.x, windowSize.y));
 
     const int MOVE_STEP = 16;
 

@@ -3,14 +3,13 @@
 #include "Vec2.h"
 #include <vector>
 #include "micropather.h"
+#include "Config.h"
 
 class PathFinder : public micropather::Graph
 {
 public:
-    static const int MAP_WIDTH = 64;
-    static const int MAP_HEIGHT = 64;
 	typedef int MapCell;
-	MapCell cells[MAP_WIDTH][MAP_HEIGHT];
+	MapCell cells[Config::World::WIDTH_CELL][Config::World::HEIGHT_CELL];
 
 	//bool isPointEmpty( int x, int y ) const;
 

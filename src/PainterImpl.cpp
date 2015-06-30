@@ -2,24 +2,33 @@
 #include <SDL2pp/Point.hh>
 #include <SDL2pp/Renderer.hh>
 
-void PainterImpl::draw(const Vec2 &pos, const Texture &picture) const
+void PainterImpl::draw(const Vec2 &pos, const Texture &texture, bool centered) const
 {
-    std::string fileName = picture.getFileName();
-    std::map<std::string, SDL2pp::Texture>::iterator it = textures.find(picture.getFileName());
+    std::string fileName = texture.getFileName();
+    std::map<std::string, SDL2pp::Texture>::iterator it = textures.find(texture.getFileName());
     if (it == textures.end())
     {
         it = textures.emplace(fileName, SDL2pp::Texture(renderer, fileName)).first;
         it->second.SetBlendMode(SDL_BLENDMODE_BLEND);
     }
 
-    renderer.Copy(it->second, SDL2pp::NullOpt, SDL2pp::Point(pos.x, pos.y));
+    SDL2pp::Point p(pos.x, pos.y);
+
+    if (centered)
+    {
+        const SDL2pp::Point& size = it->second.GetSize();
+        p.x -= (size.x / 2.0);
+        p.y -= (size.y / 2.0);
+    }
+
+    renderer.Copy(it->second, SDL2pp::NullOpt, p);
 }
 
-Vec2 PainterImpl::getTextureSize(const Texture &picture) const
+Vec2 PainterImpl::getTextureSize(const Texture &texture) const
 {
-    std::map<std::string, SDL2pp::Texture>::iterator it = textures.find(picture.getFileName());
+    std::map<std::string, SDL2pp::Texture>::iterator it = textures.find(texture.getFileName());
     if (it == textures.end())
         return Vec2();
-    SDL2pp::Point size = it->second.GetSize();
+    const SDL2pp::Point& size = it->second.GetSize();
     return Vec2(size.x, size.y);
 }

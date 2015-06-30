@@ -16,11 +16,10 @@ public:
     void update();
     void render();
     void moveMap(const Vec2& offset);
+    void alignToWindowCenter(const Vec2& windowSize);
     int find(const Vec2& from, const Vec2& to, std::vector<Vec2>& path);
 
 private:
-    static const int CELL_SIZE = 8;
-
     void updatePathFinderMap();
     void putWallRect(const Rect &rect);
     void putWallLine(Vec2 from, const Vec2& direction, int len);

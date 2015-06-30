@@ -10,9 +10,10 @@ class WorldPainterImpl : public WorldPainter
 public:
     WorldPainterImpl(Painter& painter) : painter(painter) {}
     virtual void setOffset(const Vec2& offset);
-    virtual void drawUnordered(const Vec2& pos, const Texture& picture) const;
-    virtual void draw(const Vec2& pos, const Texture & picture) const;
+    virtual void drawUnordered(const Vec2& pos, const Texture& texture) const;
+    virtual void draw(const Vec2& pos, const Texture & texture) const;
     void drawQueue() const;
+    Vec2 worldToScreen(const Vec2& pos);
 
 private:
     Painter& painter;
@@ -20,9 +21,9 @@ private:
 
     struct RenderQueueItem
     {
-        RenderQueueItem(const Vec2& pos, const Texture& picture ) : pos(pos), picture(picture) {}
+        RenderQueueItem(const Vec2& pos, const Texture& texture ) : pos(pos), texture(texture) {}
         Vec2 pos;
-        Texture picture;
+        Texture texture;
     };
 
     struct RenderQueueItemComparator

@@ -31,9 +31,8 @@ void World::moveMap(const Vec2 &offset)
 
 void World::fill()
 {
-    //Wall* wall = new Wall;
-    //addWorldObject(wall, Point(0, 0));
-    putWallRect(Rect(0, 0, 28, 28));
+    //addWorldObject(new Wall, Vec2(0, Config::World::HEIGHT_CELL));
+    putWallRect(Rect(0, 0, Config::World::WIDTH_CELL, Config::World::HEIGHT_CELL));
     putWallRect(Rect(4, 4, 24, 24));
     putWallRect(Rect(10, 10, 12, 12));
 
@@ -58,7 +57,7 @@ void World::removeWallByPos(const Vec2 &pos)
 {
     for (std::list<WorldObject *>::iterator it = items.begin(); it != items.end(); ++it)
     {
-        if ((pos * CELL_SIZE) == (*it)->getPos())
+        if ((pos * Config::World::CELL_SIZE) == (*it)->getPos())
         {
             delete *it;
             items.erase(it);
@@ -81,7 +80,7 @@ void World::putWallLine(Vec2 from, const Vec2 &direction, int len)
 
 void World::addWorldObject(WorldObject *worldObject, const Vec2 &pos)
 {
-    worldObject->setPos(pos * CELL_SIZE);
+    worldObject->setPos(pos * Config::World::CELL_SIZE);
     addWorldObject(worldObject);
 }
 
@@ -93,13 +92,13 @@ void World::addWorldObject(WorldObject *worldObject)
 
 int World::find(const Vec2 &from, const Vec2 &to, std::vector<Vec2> &path)
 {
-    return pathFinder.find(from / CELL_SIZE, to / CELL_SIZE, path);
+    return pathFinder.find(from / Config::World::CELL_SIZE, to / Config::World::CELL_SIZE, path);
 }
 
 void World::updatePathFinderMap()
 {
-    for (int col = 0; col < PathFinder::MAP_WIDTH; ++col)
-        for (int row = 0; row < PathFinder::MAP_HEIGHT; ++row)
+    for (int col = 0; col < Config::World::WIDTH_CELL; ++col)
+        for (int row = 0; row < Config::World::WIDTH_CELL; ++row)
             pathFinder.cells[col][row] = 0;
 
     for (std::list<WorldObject*>::iterator it = items.begin(); it != items.end(); ++it)
@@ -109,11 +108,22 @@ void World::updatePathFinderMap()
 
         if (!size.isZero())
         {
-            Vec2 p = worldObject->getPos() / CELL_SIZE;
+            Vec2 p = worldObject->getPos() / Config::World::CELL_SIZE;
 
             for (int col = 0; col < size.x; ++col)
                 for (int row = 0; row < size.y; ++row)
                     pathFinder.cells[col + p.x][row + p.y] = 1;
         }
     }
+}
+
+void World::alignToWindowCenter(const Vec2& windowSize)
+{
+    Vec2 windowCenter = windowSize / 2;
+    Vec2 worldSize(Config::World::WIDTH, Config::World::HEIGHT);
+    Vec2 worldCenter = worldSize / 2;
+    Vec2 worldCenterScr = worldPainter.worldToScreen(worldCenter);
+    Vec2 offset = windowCenter - worldCenterScr;
+    this->offset = offset;
+    worldPainter.setOffset(this->offset);
 }

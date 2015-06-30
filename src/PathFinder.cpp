@@ -9,14 +9,14 @@ void PathFinder::PrintStateInfo(void * /*state*/)
 Vec2 PathFinder::NodeToPoint(void *node)
 {
     intptr_t index = reinterpret_cast<intptr_t>(node);
-    int y = index / MAP_WIDTH;
-    int x = index - y * MAP_WIDTH;
+    int y = index / Config::World::WIDTH_CELL;
+    int x = index - y * Config::World::WIDTH_CELL;
     return Vec2(x, y);
 }
 
 void *PathFinder::PointToNode(const Vec2 &point)
 {
-    return reinterpret_cast<void*>(static_cast<intptr_t>(point.y * MAP_WIDTH + point.x));
+    return reinterpret_cast<void*>(static_cast<intptr_t>(point.y * Config::World::WIDTH_CELL + point.x));
 }
 
 void PathFinder::AdjacentCost(void *state, std::vector<micropather::StateCost> *adjacent)
@@ -43,7 +43,7 @@ void PathFinder::AdjacentCost(void *state, std::vector<micropather::StateCost> *
 
 bool PathFinder::passable(int nx, int ny)
 {
-    if ((nx >= 0) && (nx < MAP_WIDTH) && (ny >= 0) && (ny < MAP_HEIGHT))
+    if ((nx >= 0) && (nx < Config::World::WIDTH_CELL) && (ny >= 0) && (ny < Config::World::WIDTH_CELL))
     {
         MapCell cell = cells[nx][ny];
         if (cell == 0)
@@ -79,7 +79,7 @@ int PathFinder::find(const Vec2 &from, const Vec2 &to, std::vector<Vec2> &path)
              it != p.end();
              ++it)
         {
-            path.push_back(NodeToPoint(*it) * 8);
+            path.push_back(NodeToPoint(*it) * Config::World::CELL_SIZE);
         }
     }
 

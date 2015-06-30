@@ -14,3 +14,8 @@ void TownHall::render(const WorldPainter &worldPainter) const
     }
     worldPainter.draw(pos, "assets/townHall/townHall.png");
 }
+
+Vec2 TownHall::getDim() const
+{
+    return Vec2(3, 3);
+}
