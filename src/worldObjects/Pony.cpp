@@ -152,3 +152,8 @@ void Pony::render(const WorldPainter &worldPainter) const
     else
         worldPainter.draw(pos, "assets/pony/ponyLeft.png");
 }
+
+bool Pony::isTargetable() const
+{
+    return true;
+}

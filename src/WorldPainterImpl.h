@@ -12,8 +12,11 @@ public:
     virtual void setOffset(const Vec2& offset);
     virtual void drawUnordered(const Vec2& pos, const Texture& texture) const;
     virtual void draw(const Vec2& pos, const Texture & texture) const;
+    //virtual void fillRect(const Rect& rect, const Color& color ) const;
     void drawQueue() const;
-    Vec2 worldToScreen(const Vec2& pos);
+    Vec2 worldToScreen(const Vec2& pos) const;
+    //Rect worldToScreen(const Rect& rect) const;
+    virtual void fillRectEx(const Vec2& worldPos, const Rect& rect, const Color& color) const;
 
 private:
     Painter& painter;

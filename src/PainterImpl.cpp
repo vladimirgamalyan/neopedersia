@@ -32,3 +32,9 @@ Vec2 PainterImpl::getTextureSize(const Texture &texture) const
     const SDL2pp::Point& size = it->second.GetSize();
     return Vec2(size.x, size.y);
 }
+
+void PainterImpl::fillRect(const Rect &rect, const Color &color) const
+{
+    renderer.SetDrawColor(color.r, color.g, color.b, color.a);
+    renderer.FillRect(rect.left(), rect.top(), rect.right(), rect.bottom());
+}

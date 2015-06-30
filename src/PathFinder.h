@@ -13,7 +13,6 @@ public:
 
 	//bool isPointEmpty( int x, int y ) const;
 
-	// Найти маршрут (результат сбрасывается в Path).
 	int find(const Vec2& from, const Vec2& to, std::vector<Vec2>& path);
 
 private:

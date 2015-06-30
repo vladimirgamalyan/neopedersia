@@ -9,7 +9,7 @@ public:
     Rect(int x, int y, int w, int h) : x(x), y(y), w(w), h(h) {}
     Rect(int w, int h) : x(0), y(0), w(w), h(h) {}
     Rect(const Vec2& size) : x(0), y(0), w(size.x), h(size.y) {}
-
+    //Rect(const Vec2& topLeft, const Vec2& bottomRight) : x(topLeft.x), y(topLeft.y), w(bottomRight.x - topLeft.x), h(bottomRight.y - topLeft.y) {}
     Vec2 pos() const
     {
         return Vec2(x, y);
@@ -57,6 +57,27 @@ public:
     bool contains(const Vec2& point) const
     {
         return point.x >= x && point.y >= y && point.x <= right() && point.y <= bottom();
+    }
+
+    Rect operator+(const Vec2 &other) const
+    {
+        return Rect(x + other.x, y + other.y, w, h);
+    }
+
+    Rect &operator+=(const Vec2 &other)
+    {
+        x += other.x;
+        y += other.y;
+        return *this;
+    }
+
+    Rect& extend(int amount)
+    {
+        x -= amount;
+        y -= amount;
+        w += (amount * 2);
+        h += (amount * 2);
+        return *this;
     }
 
     int x, y, w, h;

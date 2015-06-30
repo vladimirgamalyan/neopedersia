@@ -16,11 +16,15 @@ public:
     virtual void setPos(const Vec2& pos);
     virtual Vec2 getDim() const;
     virtual WorldObjectId getId() const;
+    virtual bool isTargetable() const;
+    virtual void hit(int damage);
+    virtual void renderHealth(const WorldPainter& worldPainter) const;
+    virtual int getFullHp() const;
     Vec2 getPos() const;
     bool isDead() const;
 
 protected:
     World* world;
     Vec2 pos;
-    int hp = 1;
+    int hp = 100;
 };

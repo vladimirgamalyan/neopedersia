@@ -9,6 +9,7 @@ public:
     Pony();
     virtual void update();
     virtual void render(const WorldPainter& worldPainter) const;
+    virtual bool isTargetable() const;
 
 private:
     enum States

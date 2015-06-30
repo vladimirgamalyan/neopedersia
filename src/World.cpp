@@ -3,6 +3,8 @@
 #include "worldObjects/Pony.h"
 #include "worldObjects/TownHall.h"
 #include "worldObjects/Bojarski.h"
+#include "worldObjects/Cannon.h"
+#include "worldObjects/Mortar.h"
 
 void World::update()
 {
@@ -11,6 +13,8 @@ void World::update()
 
     for (std::list<WorldObject *>::const_iterator it = items.begin(); it != items.end(); ++it)
         (*it)->update();
+
+    removeUnitByList();
 }
 
 void World::render()
@@ -21,6 +25,8 @@ void World::render()
         (*it)->render(worldPainter);
 
     worldPainter.drawQueue();
+
+    renderHealthBars(worldPainter);
 }
 
 void World::moveMap(const Vec2 &offset)
@@ -32,6 +38,9 @@ void World::moveMap(const Vec2 &offset)
 void World::fill()
 {
     //addWorldObject(new Wall, Vec2(0, Config::World::HEIGHT_CELL));
+    addWorldObject(new Cannon, Vec2(14, 18));
+    addWorldObject(new Cannon, Vec2(7, 7));
+    addWorldObject(new Mortar, Vec2(12, 12));
     putWallRect(Rect(0, 0, Config::World::WIDTH_CELL, Config::World::HEIGHT_CELL));
     putWallRect(Rect(4, 4, 24, 24));
     putWallRect(Rect(10, 10, 12, 12));
@@ -101,7 +110,7 @@ void World::updatePathFinderMap()
         for (int row = 0; row < Config::World::WIDTH_CELL; ++row)
             pathFinder.cells[col][row] = WorldObjectId::Empty;
 
-    for (std::list<WorldObject*>::iterator it = items.begin(); it != items.end(); ++it)
+    for (std::list<WorldObject *>::iterator it = items.begin(); it != items.end(); ++it)
     {
         WorldObject *worldObject = *it;
         Vec2 size = worldObject->getDim();
@@ -118,7 +127,7 @@ void World::updatePathFinderMap()
     }
 }
 
-void World::alignToWindowCenter(const Vec2& windowSize)
+void World::alignToWindowCenter(const Vec2 &windowSize)
 {
     Vec2 windowCenter = windowSize / 2;
     Vec2 worldSize(Config::World::WIDTH, Config::World::HEIGHT);
@@ -134,4 +143,89 @@ WorldObjectId World::getBuilding(const Vec2 &pos) const
     if (!Rect(Config::World::WIDTH_CELL, Config::World::HEIGHT_CELL).contains(pos))
         return WorldObjectId::Empty;
     return pathFinder.cells[pos.x][pos.y];
+}
+
+WorldObject *World::getNearestTarget(const Vec2 &pos, int range)
+{
+    double minRange = 100000000;
+    WorldObject *target = nullptr;
+
+    for (std::list<WorldObject *>::iterator it = items.begin();
+         it != items.end();
+         ++it)
+    {
+        WorldObject *unit = *it;
+
+        if (!unit->isTargetable())
+            continue;
+
+        if (unit->isDead())
+            continue;
+
+        double distance = pos.distance(unit->getPos());
+        if (distance < range)
+        {
+            if (distance < minRange)
+            {
+                minRange = distance;
+                target = unit;
+            }
+        }
+    }
+
+    return target;
+}
+
+void World::removeWorldObject(WorldObject *worldObject)
+{
+    removeList.push_back(worldObject);
+}
+
+void World::removeUnitByList()
+{
+    for (std::vector<WorldObject *>::iterator it = removeList.begin();
+         it != removeList.end();
+         ++it)
+    {
+        delete *it;
+        items.remove(*it);
+    }
+    removeList.clear();
+}
+
+void World::renderHealthBars(const WorldPainter& worldPainter) const
+{
+    for (std::list<WorldObject *>::const_iterator it = items.cbegin(); it != items.cend(); ++it)
+    {
+        (*it)->renderHealth(worldPainter);
+    }
+}
+
+void World::massiveDamage(const Vec2 &pos, int range, int damage)
+{
+    // Пробегаем по всем объектам.
+    for ( std::list< WorldObject* >::iterator it = items.begin();
+          it != items.end();
+          ++it )
+    {
+
+        // Нас интересуют пони.
+        if ( ( *it )->isTargetable() )
+        {
+            WorldObject* unit = *it;
+
+            // Интересуют только живые пони.
+            if ( !unit->isDead() )
+            {
+                // Находим расстояние до этого пони.
+                double distance = unit->getPos().distance(pos);
+
+                // Если зацепили пони.
+                if ( distance < range )
+                {
+                    unit->hit( static_cast< int > ( damage ) );
+                }
+            }
+        }
+    }
 }
