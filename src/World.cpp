@@ -5,6 +5,7 @@
 #include "worldObjects/Bojarski.h"
 #include "worldObjects/Cannon.h"
 #include "worldObjects/Mortar.h"
+#include "worldObjects/Machinegun.h"
 
 void World::update()
 {
@@ -39,7 +40,7 @@ void World::fill()
 {
     //addWorldObject(new Wall, Vec2(0, Config::World::HEIGHT_CELL));
     addWorldObject(new Cannon, Vec2(14, 18));
-    addWorldObject(new Cannon, Vec2(7, 7));
+    addWorldObject(new Machinegun, Vec2(7, 7));
     addWorldObject(new Mortar, Vec2(12, 12));
     putWallRect(Rect(0, 0, Config::World::WIDTH_CELL, Config::World::HEIGHT_CELL));
     putWallRect(Rect(4, 4, 24, 24));
