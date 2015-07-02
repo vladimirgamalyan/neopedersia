@@ -2,7 +2,6 @@
 #include "worldObjects/Wall.h"
 #include "worldObjects/Pony.h"
 #include "worldObjects/TownHall.h"
-#include "worldObjects/Bojarski.h"
 #include "worldObjects/Cannon.h"
 #include "worldObjects/Mortar.h"
 #include "worldObjects/Machinegun.h"
@@ -49,8 +48,6 @@ void World::fill()
     for (int i = 0; i < 16; ++i)
         addWorldObject(new Pony, Vec2(1, 1));
     addWorldObject(new TownHall, Vec2(14, 14));
-
-    addWorldObject(new Bojarski, Vec2(16, 12));
 }
 
 void World::putWallRect(const Rect &rect)
