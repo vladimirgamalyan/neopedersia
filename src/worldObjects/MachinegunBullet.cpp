@@ -18,22 +18,22 @@ void MachinegunBullet::update()
 
     double step = PIXEL_PER_FRAME;
 
-    // Находим тангенс угла.
+    // tangent.
     double a = targetX - posXf;
     double b = targetY - posYf;
 
-    // Гипотенуза - она же расстояние до цели.
+    // hypotenuse or distance to target.
     double c = std::sqrt((a * a + 0.0000001) + (b * b + 0.0000001)) + 0.0000001;
 
-    // Чтобы не перелететь ненароком цель.
+    // limit to distance.
     if (step > c)
         step = c;
 
-    // Нормализуем вектор направления.
+    // normalize vector direction.
     double an = a / c;
     double bn = b / c;
 
-    // Умножаем на скорость.
+    // mult by step.
     an *= step;
     bn *= step;
 
@@ -46,7 +46,7 @@ void MachinegunBullet::update()
 
     if (c < PIXEL_PER_FRAME)
     {
-        // Добрались до цели  - наносим ущерб и удаляем объект.
+        // target is reached.
         target->hit(damage);
         world->removeWorldObject(this);
         return;
