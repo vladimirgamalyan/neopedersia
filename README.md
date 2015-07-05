@@ -17,9 +17,7 @@ Dependencies:
 
 The project also uses libSDL2pp, C++11 bindings library for SDL2.
 It's included into git repository as a submodule, so if you've
-obtained source through git, don't forget to run
-
-```git submodule
+obtained source through git, don't forget to run ```git submodule
 init && git submodule update```.
 
 ## Author
