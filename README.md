@@ -10,6 +10,7 @@ The project is currently on the early stages of development, and is not yet play
 Dependencies:
 * cmake
 * SDL2
+
 The project also uses libSDL2pp, C++11 bindings library for SDL2.
 It's included into git repository as a submodule, so if you've
 obtained source through git, don't forget to run ```git submodule
