@@ -1,6 +1,8 @@
 # neopedersia
 
 [![Build Status](https://travis-ci.org/vladimirgamalian/neopedersia.svg)](https://travis-ci.org/vladimirgamalian/neopedersia)
+[![Coverity Scan Build Status](https://scan.coverity.com/projects/5719/badge.svg)](https://scan.coverity.com/projects/5719)
+
 
 Nexus Wars style game.
 
