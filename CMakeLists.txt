@@ -1,33 +1,35 @@
-PROJECT(neopedersia)
+cmake_minimum_required(VERSION 2.8.7)
+project(neopedersia)
 
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.7)
-
-#set(CMAKE_VERBOSE_MAKEFILE on)
-
-IF(NOT EXISTS ${PROJECT_SOURCE_DIR}/extlibs/libSDL2pp/CMakeLists.txt)
+# libsdl2pp
+if(NOT EXISTS ${PROJECT_SOURCE_DIR}/extlibs/libSDL2pp/CMakeLists.txt)
 	MESSAGE(FATAL_ERROR "The source directory\n  ${PROJECT_SOURCE_DIR}/extlibs/libSDL2pp\ndoes not contain a CMakeLists.txt file.\nIt is likely that you forgot to run\n  git submodule init && git submodule update")
-ENDIF(NOT EXISTS ${PROJECT_SOURCE_DIR}/extlibs/libSDL2pp/CMakeLists.txt)
+endif(NOT EXISTS ${PROJECT_SOURCE_DIR}/extlibs/libSDL2pp/CMakeLists.txt)
+set(SDL2PP_WITH_TTF TRUE)
+set(SDL2PP_WITH_IMAGE TRUE)
+add_subdirectory(extlibs/libSDL2pp)
+include_directories(SYSTEM ${SDL2PP_INCLUDE_DIRS})
 
-IF(MSVC)
-	SET(CMAKE_PREFIX_PATH
-		"C:/usr/include"
-		"C:/usr/lib"
-		)
-ELSE(MSVC)
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -pedantic")
-ENDIF(MSVC)
+# additional libraries for windows platform (winmm.lib and sdl2main.lib)
+if(WIN32)
+    find_library(SDL2MAIN_LIBRARY NAMES SDL2main)
+    set(SDL2PP_LIBRARIES ${SDL2MAIN_LIBRARY} ${SDL2PP_LIBRARIES})
+    set(COMMON_LIBRARIES winmm.lib ${COMMON_LIBRARIES})
+endif(WIN32)
 
-IF(MINGW)
-	SET(CMAKE_PREFIX_PATH
-		"C:/MinGW/include"
-		"C:/MinGW/lib"
-		)
-ENDIF(MINGW)
+# additional libraries for mingw32 (mingw32.lib)
+if(MINGW)
+    set(COMMON_LIBRARIES mingw32 ${COMMON_LIBRARIES})
+endif(MINGW)
 
-SET(SDL2PP_WITH_IMAGE TRUE)
-SET(SDL2PP_WITH_TTF TRUE)
-ADD_SUBDIRECTORY(extlibs/libSDL2pp)
+# GCC/clang flags
+if(NOT MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -pedantic")
+endif(NOT MSVC)
 
-INCLUDE_DIRECTORIES(SYSTEM ${SDL2PP_INCLUDE_DIRS})
+# disable some GCC warnings
+if(CMAKE_COMPILER_IS_GNUCC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wno-unused-local-typedefs")
+endif(CMAKE_COMPILER_IS_GNUCC)
 
-ADD_SUBDIRECTORY(src)
+add_subdirectory(src)
