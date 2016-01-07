@@ -1,0 +1,20 @@
+os:
+  - Visual Studio 2015
+
+configuration:
+  - Release
+
+platform:
+  - Win32
+
+before_build:
+  # download and unzip precompiled SDL2 libraries
+  - appveyor DownloadFile https://github.com/vladimirgamalian/sdl2_msvc_builds/releases/download/SDL2-Binaries/sdl2.zip
+  - 7z x sdl2.zip -oC:\Libraries > nul
+  # create VS solution
+  - cd C:\projects\neopedersia
+  - git submodule init && git submodule update
+  - cmake -G "Visual Studio 14 2015" -DCMAKE_PREFIX_PATH="C:\Libraries"
+
+build:
+  project: neopedersia.sln
