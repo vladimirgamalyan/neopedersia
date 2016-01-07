@@ -1,6 +1,7 @@
 # neopedersia
 
 [![Build Status](https://travis-ci.org/vladimirgamalian/neopedersia.svg)](https://travis-ci.org/vladimirgamalian/neopedersia)
+[![Build status](https://ci.appveyor.com/api/projects/status/4v7yv2939igolapp?svg=true)](https://ci.appveyor.com/project/vladimirgamalian/neopedersia)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/5719/badge.svg)](https://scan.coverity.com/projects/5719)
 
 <p align="center"><img src="bin/assets/doc/hero.png" /></p>
